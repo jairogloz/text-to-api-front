@@ -2,18 +2,19 @@ import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import App from "./App";
 import {
-  Dashboard,
-  Team,
-  Invoices,
-  Contacts,
-  Form,
   Bar,
+  Calendar,
+  Contacts,
+  Dashboard,
+  FAQ,
+  Form,
+  Geography,
+  Invoices,
   Line,
   Pie,
-  FAQ,
-  Geography,
-  Calendar,
   Stream,
+  Team,
+  Tiers,
 } from "./scenes";
 
 const AppRouter = () => {
@@ -21,6 +22,7 @@ const AppRouter = () => {
     <Router>
       <Routes>
         <Route path="/" element={<App />}>
+          <Route path="/tiers" element={<Tiers />} />
           <Route path="/" element={<Dashboard />} />
           <Route path="/team" element={<Team />} />
           <Route path="/contacts" element={<Contacts />} />

@@ -14,6 +14,7 @@ import {
   MenuOutlined,
   PeopleAltOutlined,
   PersonOutlined,
+  PriceChange,
   ReceiptOutlined,
   TimelineOutlined,
   WavesOutlined,
@@ -76,7 +77,7 @@ const SideBar = () => {
                   textTransform="capitalize"
                   color={colors.greenAccent[500]}
                 >
-                  Argon
+                  Text2API
                 </Typography>
               </Box>
             )}
@@ -103,20 +104,38 @@ const SideBar = () => {
           />
           <Box sx={{ textAlign: "center" }}>
             <Typography variant="h3" fontWeight="bold" color={colors.gray[100]}>
-              Tony Stark
+              User Name
             </Typography>
             <Typography
               variant="h6"
               fontWeight="500"
               color={colors.greenAccent[500]}
             >
-              VP Fancy Admin
+              User Desc
             </Typography>
           </Box>
         </Box>
       )}
 
       <Box mb={5} pl={collapsed ? undefined : "5%"}>
+        <Menu
+          menuItemStyles={{
+            button: {
+              ":hover": {
+                color: "#868dfb",
+                background: "transparent",
+                transition: ".4s ease",
+              },
+            },
+          }}
+        >
+          <Item
+            title="Tiers"
+            path="/tiers"
+            colors={colors}
+            icon={<PriceChange />}
+          />
+        </Menu>
         <Menu
           menuItemStyles={{
             button: {
