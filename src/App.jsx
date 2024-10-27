@@ -38,7 +38,6 @@ function App() {
         break;
     }
   };
-  // Todo: pending logout implementation
   const logout = () => {
     supabase.auth.signOut();
     setIsAuthenticated(false);
@@ -61,7 +60,7 @@ function App() {
                   maxWidth: "100%",
                 }}
               >
-                <Navbar />
+                <Navbar logout={logout} />
                 <Box sx={{ overflowY: "auto", flex: 1, maxWidth: "100%" }}>
                   <Outlet />
                 </Box>

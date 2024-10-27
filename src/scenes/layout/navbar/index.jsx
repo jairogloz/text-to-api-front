@@ -1,12 +1,14 @@
+import React, { useState, useContext } from "react";
 import {
   Box,
   IconButton,
   InputBase,
   useMediaQuery,
   useTheme,
+  Menu,
+  MenuItem,
 } from "@mui/material";
 import { tokens, ColorModeContext } from "../../../theme";
-import { useContext } from "react";
 import {
   DarkModeOutlined,
   LightModeOutlined,
@@ -17,13 +19,32 @@ import {
   SettingsOutlined,
 } from "@mui/icons-material";
 import { ToggledContext } from "../../../App";
-const Navbar = () => {
+
+const Navbar = ({ logout }) => {
   const theme = useTheme();
   const colorMode = useContext(ColorModeContext);
   const { toggled, setToggled } = useContext(ToggledContext);
   const isMdDevices = useMediaQuery("(max-width:768px)");
   const isXsDevices = useMediaQuery("(max-width:466px)");
   const colors = tokens(theme.palette.mode);
+
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+
+  const handleMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    // Implement your logout logic here
+    console.log("Logout clicked");
+    logout();
+  };
+
   return (
     <Box
       display="flex"
@@ -66,9 +87,25 @@ const Navbar = () => {
         <IconButton>
           <SettingsOutlined />
         </IconButton>
-        <IconButton>
+        <IconButton onClick={handleMenuOpen}>
           <PersonOutlined />
         </IconButton>
+        <Menu
+          anchorEl={anchorEl}
+          open={open}
+          onClose={handleMenuClose}
+          anchorOrigin={{
+            vertical: "top",
+            horizontal: "right",
+          }}
+          transformOrigin={{
+            vertical: "top",
+            horizontal: "right",
+          }}
+        >
+          <MenuItem onClick={handleLogout}>Logout</MenuItem>
+          {/* Add more MenuItem components here for other user options */}
+        </Menu>
       </Box>
     </Box>
   );
