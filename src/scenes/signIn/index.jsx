@@ -9,8 +9,9 @@ import {
   Card,
 } from "@mui/material";
 import "./index.css";
+import { Google as GoogleIcon } from "@mui/icons-material";
 
-const SignInSignUp = ({ onAuthChange }) => {
+const SignInSignUp = ({ onAuthChange, onAuthWithOAuth }) => {
   const [isSignIn, setIsSignIn] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -22,6 +23,11 @@ const SignInSignUp = ({ onAuthChange }) => {
 
   const handleSubmit = () => {
     onAuthChange(isSignIn, email, password, confirmPassword);
+  };
+
+  const handleGoogleSignIn = () => {
+    console.log("Google Sign-In");
+    onAuthWithOAuth("google");
   };
 
   return (
@@ -85,6 +91,15 @@ const SignInSignUp = ({ onAuthChange }) => {
           sx={{ mt: 2 }}
         >
           {isSignIn ? "Sign In" : "Sign Up"}
+        </Button>
+        <Button
+          variant="contained"
+          startIcon={<GoogleIcon />}
+          onClick={handleGoogleSignIn}
+          fullWidth
+          sx={{ mt: 2, color: "white", borderColor: "black" }}
+        >
+          Sign In with Google
         </Button>
       </Card>
     </Box>

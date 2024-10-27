@@ -13,3 +13,8 @@ stats.html
 .eslintcache
 .DS_Store
 src/.DS_Store
+
+# Env files
+.env
+
+README_LOCAL.md
