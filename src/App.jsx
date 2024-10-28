@@ -1,8 +1,8 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useState, useEffect } from "react";
 import { Box, CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
 import { Navbar, SideBar, SignInSignUp } from "./scenes";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { supabase } from "./lib/helper/supabaseClient";
 import { useSession } from "./context/SessionContext";
 
@@ -10,6 +10,22 @@ export const ToggledContext = createContext(null);
 
 function App() {
   const sessionCtx = useSession();
+  const navigate = useNavigate();
+  let isNewUser = false;
+
+  useEffect(() => {
+    if (sessionCtx.session != null) {
+      const TIME_THRESHOLD = 1000 * 60 * 5; // 5 minutes
+      const user = sessionCtx.session.user;
+      isNewUser = new Date() - new Date(user.created_at) < TIME_THRESHOLD;
+
+      if (isNewUser) {
+        navigate("/tiers");
+      } else {
+        navigate("/");
+      }
+    }
+  }, [sessionCtx.session, navigate]);
 
   const [theme, colorMode] = useMode();
   const [toggled, setToggled] = useState(false);
@@ -17,12 +33,6 @@ function App() {
   const values = { toggled, setToggled };
 
   const handleAuthChange = (isSignIn, email, password, confirmPassword) => {
-    //console.log("isSignIn:", isSignIn);
-    //console.log("Email:", email);
-    //console.log("Password:", password);
-    //if (!isSignIn) {
-    //  console.log("Confirm Password:", confirmPassword);
-    //}
     // Implement your authentication logic here
     setIsAuthenticated(true); // Set authentication status to true
   };
