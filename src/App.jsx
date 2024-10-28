@@ -11,21 +11,20 @@ export const ToggledContext = createContext(null);
 function App() {
   const sessionCtx = useSession();
   const navigate = useNavigate();
-  let isNewUser = false;
+  const [hasRedirected, setHasRedirected] = useState(false); // State to track redirection
 
   useEffect(() => {
-    if (sessionCtx.session != null) {
+    if (sessionCtx.session != null && !hasRedirected) {
       const TIME_THRESHOLD = 1000 * 60 * 5; // 5 minutes
       const user = sessionCtx.session.user;
-      isNewUser = new Date() - new Date(user.created_at) < TIME_THRESHOLD;
+      const isNewUser = new Date() - new Date(user.created_at) < TIME_THRESHOLD;
 
       if (isNewUser) {
         navigate("/tiers");
-      } else {
-        navigate("/");
       }
+      setHasRedirected(true); // Set the state to true after redirection
     }
-  }, [sessionCtx.session, navigate]);
+  }, [sessionCtx.session, hasRedirected, navigate]);
 
   const [theme, colorMode] = useMode();
   const [toggled, setToggled] = useState(false);
@@ -35,6 +34,7 @@ function App() {
   const handleAuthChange = (isSignIn, email, password, confirmPassword) => {
     // Implement your authentication logic here
     setIsAuthenticated(true); // Set authentication status to true
+    setHasRedirected(false); // Reset the redirection state on authentication change
   };
 
   const signInWithOAuth = (authType) => {
@@ -48,9 +48,11 @@ function App() {
         break;
     }
   };
+
   const logout = () => {
     supabase.auth.signOut();
     setIsAuthenticated(false);
+    setHasRedirected(false); // Reset the redirection state on logout
   };
 
   return (
