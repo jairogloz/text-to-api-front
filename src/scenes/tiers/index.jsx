@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import { CheckCircleOutline } from "@mui/icons-material";
 import { loadStripe } from "@stripe/stripe-js";
+import { useSession } from "../../contexts/SessionContext";
 
 const stripePromise = loadStripe(
   "pk_test_51LDsoMD1j0rGe96vgL0XmOYzLIpf1k9DpWWHFUFogORKwxyR1PhcRwT6QCyzn4y299M8bQCQe7sUtfS777KivFoH00o3rqAVAm"
@@ -44,14 +45,20 @@ const tiersData = [
 ];
 
 const Tiers = () => {
+  const sessionCtx = useSession();
+  const accessToken = sessionCtx.session?.access_token;
+  console.log(accessToken);
+
   const handleCheckout = async (priceId) => {
     const stripe = await stripePromise;
 
     // Call the backend to create a checkout session
-    const response = await fetch("http://localhost:8083/checkout-session", {
+    const response = await fetch("http://localhost:8081/v1/checkout-session", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+        Environment: "live",
       },
       body: JSON.stringify({ price_id: priceId }),
     });

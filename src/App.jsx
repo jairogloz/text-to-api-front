@@ -4,7 +4,7 @@ import { ColorModeContext, useMode } from "./theme";
 import { Navbar, SideBar, SignInSignUp } from "./scenes";
 import { Outlet, useNavigate } from "react-router-dom";
 import { supabase } from "./lib/helper/supabaseClient";
-import { useSession } from "./context/SessionContext";
+import { useSession } from "./contexts/SessionContext";
 
 export const ToggledContext = createContext(null);
 
