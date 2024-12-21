@@ -50,27 +50,46 @@ const Tiers = () => {
   console.log(accessToken);
 
   const handleCheckout = async (priceId) => {
-    const stripe = await stripePromise;
+    try {
+      const stripe = await stripePromise;
 
-    // Call the backend to create a checkout session
-    const response = await fetch("http://localhost:8081/v1/checkout-session", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${accessToken}`,
-        Environment: "live",
-      },
-      body: JSON.stringify({ price_id: priceId }),
-    });
+      // Call the backend to create a checkout session
+      const response = await fetch(
+        "http://localhost:8081/v1/checkout-session",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+            Environment: "live",
+          },
+          body: JSON.stringify({ price_id: priceId }),
+        }
+      );
 
-    const session = await response.json();
+      // Check if the response status is OK (status 2xx)
+      if (!response.ok) {
+        const errorMessage = await response.text();
+        throw new Error(`Failed to create checkout session: ${errorMessage}`);
+      }
 
-    // Redirect to Stripe Checkout
-    if (session.id) {
-      const { error } = await stripe.redirectToCheckout({
-        sessionId: session.id,
-      });
-      if (error) console.error("Stripe checkout error:", error);
+      const session = await response.json();
+
+      // Redirect to Stripe Checkout
+      if (session.id) {
+        const { error } = await stripe.redirectToCheckout({
+          sessionId: session.id,
+        });
+        if (error) {
+          console.error("Stripe checkout error:", error);
+          alert("Failed to redirect to checkout. Please try again.");
+        }
+      } else {
+        throw new Error("Checkout session ID is missing.");
+      }
+    } catch (error) {
+      console.error("Error during checkout process:", error.message);
+      alert(`Error: ${error.message}`);
     }
   };
 
