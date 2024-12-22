@@ -16,6 +16,7 @@ import {
   PersonOutlined,
   PriceChange,
   ReceiptOutlined,
+  TerminalOutlined,
   TimelineOutlined,
   WavesOutlined,
 } from "@mui/icons-material";
@@ -130,31 +131,26 @@ const SideBar = () => {
           }}
         >
           <Item
-            title="Tiers"
-            path="/tiers"
+            title="Developers"
+            path="/developers"
             colors={colors}
-            icon={<PriceChange />}
+            icon={<TerminalOutlined />}
           />
-        </Menu>
-        <Menu
-          menuItemStyles={{
-            button: {
-              ":hover": {
-                color: "#868dfb",
-                background: "transparent",
-                transition: ".4s ease",
-              },
-            },
-          }}
-        >
           <Item
             title="Dashboard"
             path="/"
             colors={colors}
             icon={<DashboardOutlined />}
           />
+          <Item
+            title="Tiers"
+            path="/tiers"
+            colors={colors}
+            icon={<PriceChange />}
+          />
         </Menu>
-        <Typography
+        {/* Section: Data */}
+        {/*<Typography
           variant="h6"
           color={colors.gray[300]}
           sx={{ m: "15px 0 5px 20px" }}
@@ -190,8 +186,9 @@ const SideBar = () => {
             colors={colors}
             icon={<ReceiptOutlined />}
           />
-        </Menu>
-        <Typography
+        </Menu>*/}
+        {/* Section: Pages */}
+        {/*<Typography
           variant="h6"
           color={colors.gray[300]}
           sx={{ m: "15px 0 5px 20px" }}
@@ -227,8 +224,9 @@ const SideBar = () => {
             colors={colors}
             icon={<HelpOutlineOutlined />}
           />
-        </Menu>
-        <Typography
+        </Menu>*/}
+        {/* Section: Charts */}
+        {/*<Typography
           variant="h6"
           color={colors.gray[300]}
           sx={{ m: "15px 0 5px 20px" }}
@@ -276,7 +274,7 @@ const SideBar = () => {
             colors={colors}
             icon={<WavesOutlined />}
           />
-        </Menu>
+        </Menu>*/}
       </Box>
     </Sidebar>
   );

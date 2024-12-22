@@ -2,6 +2,7 @@ import Bar from "./bar";
 import Calendar from "./calendar";
 import Contacts from "./contacts";
 import Dashboard from "./dashboard";
+import Developers from "./developers";
 import FAQ from "./faq";
 import Form from "./form";
 import Geography from "./geography";
@@ -20,6 +21,7 @@ export {
   Calendar,
   Contacts,
   Dashboard,
+  Developers,
   FAQ,
   Form,
   Geography,
