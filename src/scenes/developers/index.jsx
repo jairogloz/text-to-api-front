@@ -1,13 +1,20 @@
+import React, { useState } from "react";
 import {
   Box,
   Button,
   Typography,
   useTheme,
   useMediaQuery,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
 } from "@mui/material";
 import { Key } from "@mui/icons-material";
 import { Header } from "../../components";
 import { tokens } from "../../theme";
+import KeyDialog from "./KeyDialog";
 
 function Developers() {
   const theme = useTheme();
@@ -16,6 +23,28 @@ function Developers() {
   const isMdDevices = useMediaQuery("(min-width: 724px)");
   const isXsDevices = useMediaQuery("(max-width: 436px)");
   const keyWasGenerated = true;
+
+  const [openGenerateNewKey, setOpenGenerateNewKey] = useState(false);
+  const [openKeyDialog, setOpenKeyDialog] = useState(false);
+
+  const handleGenerateNewKey = () => {
+    setOpenGenerateNewKey(true);
+  };
+
+  const handleClose = () => {
+    setOpenGenerateNewKey(false);
+  };
+
+  const handleAccept = () => {
+    console.log("Generate new key");
+    setOpenGenerateNewKey(false);
+    setOpenKeyDialog(true);
+  };
+
+  const handleCloseKeyDialog = () => {
+    setOpenKeyDialog(false);
+  };
+
   return (
     <Box m="20px">
       <Box display="flex" justifyContent="space-between">
@@ -74,7 +103,7 @@ function Developers() {
                 {keyWasGenerated ? "Key was generated on Dec 21st 2024" : ""}
               </Typography>
             </Box>
-            <Box dsiplay="flex" flexDirection="column" alignItems="center">
+            <Box display="flex" flexDirection="column" alignItems="center">
               <Button
                 variant="contained"
                 sx={{
@@ -90,6 +119,7 @@ function Developers() {
                   },
                 }}
                 startIcon={<Key />}
+                onClick={handleGenerateNewKey}
               >
                 GENERATE NEW KEY
               </Button>
@@ -97,6 +127,46 @@ function Developers() {
           </Box>
         </Box>
       </Box>
+
+      <Dialog open={openGenerateNewKey} onClose={handleClose}>
+        <DialogTitle>Generate New Key</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            A new API Key will be generated. The previous key will be revoked.
+            Are you sure you want to proceed?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={handleClose}
+            sx={{
+              bgcolor: colors.gray[700],
+              color: "#fcfcfc",
+              transition: ".3s ease",
+              ":hover": {
+                bgcolor: colors.gray[800],
+              },
+            }}
+          >
+            Cancel
+          </Button>
+          <Button
+            onClick={handleAccept}
+            sx={{
+              bgcolor: colors.blueAccent[700],
+              color: "#fcfcfc",
+              transition: ".3s ease",
+              ":hover": {
+                bgcolor: colors.blueAccent[800],
+              },
+            }}
+          >
+            Accept
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      <KeyDialog open={openKeyDialog} onClose={handleCloseKeyDialog} />
     </Box>
   );
 }
