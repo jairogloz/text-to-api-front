@@ -88,7 +88,7 @@ const SideBar = () => {
           </Box>
         </MenuItem>
       </Menu>
-      {!collapsed && (
+      {/*!collapsed && (
         <Box
           sx={{
             display: "flex",
@@ -116,7 +116,7 @@ const SideBar = () => {
             </Typography>
           </Box>
         </Box>
-      )}
+      )*/}
 
       <Box mb={5} pl={collapsed ? undefined : "5%"}>
         <Menu
@@ -136,12 +136,12 @@ const SideBar = () => {
             colors={colors}
             icon={<TerminalOutlined />}
           />
-          <Item
+          {/*<Item
             title="Dashboard"
             path="/"
             colors={colors}
             icon={<DashboardOutlined />}
-          />
+          />*/}
           <Item
             title="Tiers"
             path="/tiers"
