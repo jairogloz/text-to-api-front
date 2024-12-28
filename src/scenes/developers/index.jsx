@@ -22,7 +22,7 @@ function Developers() {
   const isXlDevices = useMediaQuery("(min-width: 1260px)");
   const isMdDevices = useMediaQuery("(min-width: 724px)");
   const isXsDevices = useMediaQuery("(max-width: 436px)");
-  const keyWasGenerated = true;
+  const keyWasGenerated = false;
 
   const [openGenerateNewKey, setOpenGenerateNewKey] = useState(false);
   const [openKeyDialog, setOpenKeyDialog] = useState(false);

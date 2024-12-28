@@ -14,20 +14,38 @@ import {
 } from "@mui/material";
 import { ContentCopy } from "@mui/icons-material";
 import { tokens } from "../../theme";
+import { useSession } from "../../contexts/SessionContext";
 
 const KeyDialog = ({ open, onClose }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [loading, setLoading] = useState(true);
   const [key, setKey] = useState("");
+  const sessionCtx = useSession();
+  const accessToken = sessionCtx.session?.access_token;
 
   useEffect(() => {
     if (open) {
-      // Simulate a backend call to get the key value
-      setTimeout(() => {
-        setKey("new-generated-api-key");
-        setLoading(false);
-      }, 2000); // Simulate a 2-second delay
+      const fetchApiKey = async () => {
+        try {
+          const response = await fetch("http://localhost:8081/v1/api-keys", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${accessToken}`,
+              Environment: "live",
+            },
+          });
+          const responseBody = await response.json();
+          setKey(responseBody.api_key);
+          setLoading(false);
+        } catch (error) {
+          console.error("Error fetching API key:", error);
+          setLoading(false);
+        }
+      };
+
+      fetchApiKey();
     }
   }, [open]);
 
