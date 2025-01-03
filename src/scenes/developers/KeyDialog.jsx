@@ -15,6 +15,7 @@ import {
 import { ContentCopy } from "@mui/icons-material";
 import { tokens } from "../../theme";
 import { useSession } from "../../contexts/SessionContext";
+import config from "../../config";
 
 const KeyDialog = ({ open, onClose }) => {
   const theme = useTheme();
@@ -28,7 +29,7 @@ const KeyDialog = ({ open, onClose }) => {
     if (open) {
       const fetchApiKey = async () => {
         try {
-          const response = await fetch("http://localhost:8081/v1/api-keys", {
+          const response = await fetch(config.backendURL + "/v1/api-keys", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",

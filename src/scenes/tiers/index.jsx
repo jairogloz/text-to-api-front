@@ -11,6 +11,7 @@ import {
 import { CheckCircleOutline } from "@mui/icons-material";
 import { loadStripe } from "@stripe/stripe-js";
 import { useSession } from "../../contexts/SessionContext";
+import config from "../../config";
 
 const stripePromise = loadStripe(
   "pk_test_51LDsoMD1j0rGe96vgL0XmOYzLIpf1k9DpWWHFUFogORKwxyR1PhcRwT6QCyzn4y299M8bQCQe7sUtfS777KivFoH00o3rqAVAm"
@@ -54,18 +55,15 @@ const Tiers = () => {
       const stripe = await stripePromise;
 
       // Call the backend to create a checkout session
-      const response = await fetch(
-        "http://localhost:8081/v1/checkout-session",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${accessToken}`,
-            Environment: "live",
-          },
-          body: JSON.stringify({ price_id: priceId }),
-        }
-      );
+      const response = await fetch(config.backendURL + "/v1/checkout-session", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+          Environment: "live",
+        },
+        body: JSON.stringify({ price_id: priceId }),
+      });
 
       // Check if the response status is OK (status 2xx)
       if (!response.ok) {

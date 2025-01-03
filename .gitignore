@@ -16,5 +16,6 @@ src/.DS_Store
 
 # Env files
 .env
+.env.production
 
 README_LOCAL.md
