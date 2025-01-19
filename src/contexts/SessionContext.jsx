@@ -17,7 +17,6 @@ export const SessionProvider = ({ children }) => {
     const getSession = async () => {
       const { data, error } = await supabase.auth.getSession();
       if (data?.session) {
-        console.log(data.session);
         setSession(data.session);
       }
     };
@@ -30,7 +29,6 @@ export const SessionProvider = ({ children }) => {
         if (event === "SIGNED_IN") {
           setSession(session);
         } else if (event === "SIGNED_OUT") {
-          console.log("User signed out");
           setSession(null); // Clear session on logout
         } // end of if event
       } // end of (event, session) => {}

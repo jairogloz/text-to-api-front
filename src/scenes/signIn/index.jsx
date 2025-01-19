@@ -26,7 +26,6 @@ const SignInSignUp = ({ onAuthChange, onAuthWithOAuth }) => {
   };
 
   const handleGoogleSignIn = () => {
-    console.log("Google Sign-In");
     onAuthWithOAuth("google");
   };
 

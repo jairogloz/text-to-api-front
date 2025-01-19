@@ -5,6 +5,7 @@ import { Navbar, SideBar, SignInSignUp } from "./scenes";
 import { Outlet, useNavigate } from "react-router-dom";
 import { supabase } from "./lib/helper/supabaseClient";
 import { useSession } from "./contexts/SessionContext";
+import config from "./config";
 
 export const ToggledContext = createContext(null);
 
@@ -18,6 +19,8 @@ function App() {
       const TIME_THRESHOLD = 1000 * 60 * 5; // 5 minutes
       const user = sessionCtx.session.user;
       const isNewUser = new Date() - new Date(user.created_at) < TIME_THRESHOLD;
+
+      // Todo: determine if customer needs to be created on stripe and, if so, send the request to the backend
 
       if (isNewUser) {
         navigate("/tiers");
@@ -37,11 +40,15 @@ function App() {
     setHasRedirected(false); // Reset the redirection state on authentication change
   };
 
+  const redirectTo =
+    window.location.hostname === "localhost" ? config.localURL : config.prodURL;
+
   const signInWithOAuth = (authType) => {
     switch (authType) {
       case "google":
         supabase.auth.signInWithOAuth({
           provider: "google",
+          options: { redirectTo },
         });
         break;
       default:

@@ -48,7 +48,6 @@ const tiersData = [
 const Tiers = () => {
   const sessionCtx = useSession();
   const accessToken = sessionCtx.session?.access_token;
-  console.log(accessToken);
 
   const handleCheckout = async (priceId) => {
     try {

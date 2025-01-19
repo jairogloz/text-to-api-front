@@ -41,7 +41,6 @@ const Navbar = ({ logout }) => {
 
   const handleLogout = () => {
     // Implement your logout logic here
-    console.log("Logout clicked");
     logout();
   };
 

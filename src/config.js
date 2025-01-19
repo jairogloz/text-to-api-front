@@ -14,6 +14,8 @@ const getEnvVar = (key, defaultValue = undefined) => {
 const config = {
   appMode: getEnvVar("VITE_APP_MODE", "development"),
   backendURL: getEnvVar("VITE_BACKEND_URL"),
+  localURL: getEnvVar("VITE_LOCAL_URL"),
+  prodURL: getEnvVar("VITE_PROD_URL"),
   supabaseURL: getEnvVar("VITE_SUPABASE_URL"),
   supabaseAnonKey: getEnvVar("VITE_SUPABASE_ANON_KEY"),
 };

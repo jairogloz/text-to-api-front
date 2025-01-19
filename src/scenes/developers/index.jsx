@@ -36,7 +36,6 @@ function Developers() {
   };
 
   const handleAccept = () => {
-    console.log("Generate new key");
     setOpenGenerateNewKey(false);
     setOpenKeyDialog(true);
   };
