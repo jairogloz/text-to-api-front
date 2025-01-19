@@ -54,7 +54,7 @@ const SignInSignUp = ({ onAuthChange, onAuthWithOAuth }) => {
         <Typography variant="h4" gutterBottom sx={{ mt: 3 }}>
           {isSignIn ? "Sign In" : "Sign Up"}
         </Typography>
-        <TextField
+        {/* <TextField
           label="Email"
           variant="outlined"
           margin="normal"
@@ -90,7 +90,7 @@ const SignInSignUp = ({ onAuthChange, onAuthWithOAuth }) => {
           sx={{ mt: 2 }}
         >
           {isSignIn ? "Sign In" : "Sign Up"}
-        </Button>
+        </Button> */}
         <Button
           variant="contained"
           startIcon={<GoogleIcon />}

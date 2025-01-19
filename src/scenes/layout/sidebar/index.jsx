@@ -142,12 +142,12 @@ const SideBar = () => {
             colors={colors}
             icon={<DashboardOutlined />}
           />*/}
-          <Item
+          {/* <Item
             title="Tiers"
             path="/tiers"
             colors={colors}
             icon={<PriceChange />}
-          />
+          /> */}
         </Menu>
         {/* Section: Data */}
         {/*<Typography
