@@ -58,7 +58,7 @@ const Navbar = ({ logout }) => {
         >
           <MenuOutlined />
         </IconButton>
-        <Box
+        {/* <Box
           display="flex"
           alignItems="center"
           bgcolor={colors.primary[400]}
@@ -69,7 +69,7 @@ const Navbar = ({ logout }) => {
           <IconButton type="button" sx={{ p: 1 }}>
             <SearchOutlined />
           </IconButton>
-        </Box>
+        </Box> */}
       </Box>
 
       <Box>
@@ -80,12 +80,12 @@ const Navbar = ({ logout }) => {
             <DarkModeOutlined />
           )}
         </IconButton>
-        <IconButton>
+        {/* <IconButton>
           <NotificationsOutlined />
         </IconButton>
         <IconButton>
           <SettingsOutlined />
-        </IconButton>
+        </IconButton> */}
         <IconButton onClick={handleMenuOpen}>
           <PersonOutlined />
         </IconButton>
